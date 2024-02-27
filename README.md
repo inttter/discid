@@ -15,7 +15,7 @@ npm install -g discid
 # Usage
 
 > [!IMPORTANT]
-> This package uses [Lanyard](https://github.com/Phineas/lanyard) to fetch user status. In order for this to work, you must [join the Lanyard Discord server](https://discord.com/invite/lanyard) to track *your own* status, as well as anybody else's status. If the user you try searching for is not in the server, you will get an error reminding you of this.
+> This package uses [Lanyard](https://github.com/Phineas/lanyard) to fetch user status. In order for this to work, you must [join the Lanyard Discord server](https://discord.com/invite/lanyard) to track *your own* status, and if you want to track somebody else's status, *they* must be in the server. If the user you try searching for is not in the server, you will get an error reminding you of this.
 
 ```bash
 discid <userId>
