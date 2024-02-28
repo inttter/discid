@@ -9,7 +9,13 @@ async function getUserPresence(userID) {
         const response = await axios.get(`https://api.lanyard.rest/v1/users/${userID}`);
         return response.data;
     } catch (error) {
-        throw new Error(`An error occurred fetching data from the Lanyard API: ${error.message}`);
+        console.log()
+        console.log(chalk.red(`An error occurred fetching data from the Lanyard API.`))
+        console.log()
+        console.log(`It is possible that this user ID is not in the Lanyard Discord server.`)
+        console.log(`You need a user ID that is in: https://discord.gg/lanyard`)
+        console.log()
+        throw new Error(chalk.red(`${error.message}`));
     }
 }
 
