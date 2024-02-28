@@ -30,49 +30,45 @@ async function main() {
                     if (options.json) {
                         console.log(JSON.stringify(user, null, 2)); // Output JSON data
                     } else {
-                        let presenceInfo = '';
+                        let presenceInfo = `${user.discord_user.username} is `;
 
                         switch (user.discord_status) {
                             case 'online':
-                                presenceInfo = chalk.green('Online');
+                                presenceInfo += chalk.green('Online');
                                 break;
                             case 'idle':
-                                presenceInfo = chalk.yellow('Idle');
+                                presenceInfo += chalk.yellow('Idle');
                                 break;
                             case 'dnd':
-                                presenceInfo = (`on ${chalk.red('Do Not Disturb')}`);
+                                presenceInfo += (`on ${chalk.red('Do Not Disturb')}`);
                                 break;
                             default:
-                                presenceInfo = chalk.dim('Offline');
+                                presenceInfo += chalk.dim('Offline');
                                 break;
-                        }
-
-                        if (user.listening_to_spotify && user.spotify) {
-                            presenceInfo += `, listening to ${chalk.cyan(`${user.spotify.song}`)} by ${chalk.cyan(`${user.spotify.artist}`)}`;
                         }
 
                         const gameActivity = user.activities.find(activity => activity.type === 0);
                         if (gameActivity) {
-                            presenceInfo += `, playing ${chalk.cyan(`${gameActivity.name}`)}`;
+                            presenceInfo += `\n${chalk.magenta('Playing:')} ${chalk.cyan(`${gameActivity.name}`)}`;
                         }
 
-                        const customStatus = user.activities.find(activity => activity.type === 4);
-                        if (customStatus) {
-                            presenceInfo += `\n\n${chalk.magenta('Status:')} ${customStatus.state || customStatus.name}`;
+                        if (user.listening_to_spotify && user.spotify) {
+                            presenceInfo += `\n${chalk.magenta('Listening To:')} ${chalk.cyan(`${user.spotify.song}`)} by ${chalk.cyan(`${user.spotify.artist}`)} on ${chalk.cyan(`${user.spotify.album}`)}`;
                         }
 
-                        // Include platform information
                         if (user.active_on_discord_web) {
-                            presenceInfo += `\n${chalk.blue('Platform:')} Web`;
+                            presenceInfo += `\n${chalk.magenta('Platform:')} ${chalk.cyan('Web')}`;
                         }
                         if (user.active_on_discord_desktop) {
-                            presenceInfo += `\n${chalk.blue('Platform:')} Desktop`;
+                            presenceInfo += `\n${chalk.magenta('Platform:')} ${chalk.cyan('Desktop')}`;
                         }
                         if (user.active_on_discord_mobile) {
-                            presenceInfo += `\n${chalk.blue('Platform:')} Mobile`;
+                            presenceInfo += `\n${chalk.magenta('Platform:')} ${chalk.cyan('Mobile')}`;
                         }
 
-                        console.log(`${user.discord_user.username} is ${presenceInfo}`);
+                        console.log();
+                        console.log(presenceInfo);
+                        console.log();
                     }
                 } else {
                     console.log('The presence of the user could not be found, or the API request failed.');
