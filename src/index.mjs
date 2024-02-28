@@ -28,7 +28,7 @@ async function main() {
                     const user = presenceData.data;
 
                     if (options.json) {
-                        console.log(JSON.stringify(user, null, 2)); // Output JSON data
+                        console.log(JSON.stringify(user, null, 2)); // output JSON data
                     } else {
                         let presenceInfo = '';
 
@@ -56,16 +56,22 @@ async function main() {
                             presenceInfo += `, playing ${chalk.cyan(`${gameActivity.name}`)}`;
                         }
 
+                        const customStatus = user.activities.find(activity => activity.type === 4);
+                        if (customStatus) {
+                            presenceInfo += `\n\n${chalk.magenta('Status:')} ${customStatus.state || customStatus.name}`;
+                        }
+
                         console.log(`${user.discord_user.username} is ${presenceInfo}`);
                     }
                 } else {
-                    console.log('The presence of the user could not be found, or the API request failed.');
+                    console.log('The presence of the user could not be found, or it is possible that the API request failed.');
                 }
             } catch (error) {
                 console.error(error.message);
             }
-        })
-        .parse(process.argv);
+        });
+
+    program.parse(process.argv);
 
     if (!process.argv.slice(2).length) {
         program.outputHelp();
