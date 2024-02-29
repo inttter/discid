@@ -4,10 +4,10 @@
 
 # discid
 
-A simple command-line tool to check a user's Discord status from the command line using Lanyard.
+A simple command-line tool to check a user's Discord status using Lanyard.
 
 <div align="center">
-<img src="https://github.com/inttter/discid/assets/73017070/d3620647-dbec-4102-8045-dc38e2b14722" width="750">
+<img src="https://github.com/inttter/discid/assets/73017070/0c33e42a-49e5-4120-89cd-994ff450d09c" width="750">
 </div>
 
 # Installation
@@ -37,7 +37,7 @@ For example:
 discid 514106760299151372
 ```
 
-Will return:
+might return something like:
 
 ```bash
 iinter is Online
@@ -53,7 +53,33 @@ as the status of the user is "Online" and listening to the song in question at t
 
 <br>
 
-Other features of user status, such as [what a user is listening to on Spotify](https://github.com/inttter/inttter/assets/73017070/772bdd2a-e95d-4193-947d-8ddd3c709bb8), is supported. It shows the song name, artist, and album. [Game statuses are also supported](https://github.com/inttter/inttter/assets/73017070/3b9e937e-b768-4724-bc03-c665395d3954), although specific features of the rich precense such as the map you're playing on, or the score of a game, are not currently supported.
+Other features of user status, such as [what a user is listening to on Spotify](https://github.com/inttter/inttter/assets/73017070/772bdd2a-e95d-4193-947d-8ddd3c709bb8), is supported. It shows the song name, artist, and album. [Game statuses are also supported](https://github.com/inttter/inttter/assets/73017070/3b9e937e-b768-4724-bc03-c665395d3954).
+
+---
+
+With [v1.2.0](https://github.com/inttter/discid/releases/tag/v1.2.0), more specific details about certain games are supported. This reads ```gameActivity.details``` and displays it next to the name of the game.
+
+Here's two examples with Roblox using [Bloxstrap](https://github.com/pizzaboxer/bloxstrap), and the rhythm game [osu!](https://osu.ppy.sh):
+
+| Roblox | osu! |
+| ----------- | ----------- |
+| <img src="https://github.com/inttter/discid/assets/73017070/4d29b801-8513-4e6a-a759-d5ed74aadbf9"> | <img src="https://github.com/inttter/discid/assets/73017070/5fecdb74-4864-4b95-989d-147e39c192df"> |
+
+and this is how they show up on Discord:
+
+| | |
+| ----------- | ----------- |
+| <img src="https://github.com/inttter/discid/assets/73017070/d47734ab-0d7e-4d05-8400-31c12d5d5c4a" width="250"> | <img src="https://github.com/inttter/discid/assets/73017070/205844f6-efc4-4259-b3a8-6fd006ac34cc" width="250"> |
+
+> [!NOTE] 
+> These only show up if the game in question has a ```gameActivity.details```. If not, only the name of the game will show.
+>
+> An example of where this would be in the JSON output is shown below:
+> ```json
+> "details": "kessoku band - Guitar to Kodoku to Aoi Hoshi [Ame's Insane]",
+> ```
+
+---
 
 # Options
 
