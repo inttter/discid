@@ -44,9 +44,16 @@ async function main() {
                     const user = presenceData.data;
 
                     if (options.json) {
-                        console.log(JSON.stringify(user, null, 2)); // outputs JSON data
+                        console.log(JSON.stringify(user, null, 2));
                     } else {
-                        let presenceInfo = `${user.discord_user.username} is `;
+                        let presenceInfo = `${user.discord_user.username}`;
+
+                        // mainly for bots / people who have not switched to the new username system (why?)
+                        if (user.discord_user.discriminator && user.discord_user.discriminator !== '0') {
+                            presenceInfo += `${chalk.cyan(`#${user.discord_user.discriminator}`)}`;
+                        }
+                        
+                        presenceInfo += ` is `;
 
                         switch (user.discord_status) {
                             case 'online':
