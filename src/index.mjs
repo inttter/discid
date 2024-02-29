@@ -73,6 +73,8 @@ async function main() {
                             presenceInfo += `\n${chalk.magenta('Status:')} ${chalk.cyan(customStatusText)}${chalk.cyan(customStatus.state)}`;
                         }
 
+                        const watchedActivities = new Set();
+
                         user.activities.forEach(activity => {
                             switch (activity.type) {
                                 case 0: // Playing
@@ -82,11 +84,18 @@ async function main() {
                                     }
                                     break;
                                 case 1: // Streaming
-                                presenceInfo += `\n${chalk.magenta('Streaming:')} ${chalk.cyan(activity.name)} @ ${chalk.cyan(activity.url)}`;
-                                break;
+                                    presenceInfo += `\n${chalk.magenta('Streaming:')} ${chalk.cyan(activity.name)} @ ${chalk.cyan(activity.url)}`;
+                                    break;
                                 case 2: // Listening to Spotify
                                     if (user.listening_to_spotify && user.spotify) {
                                         presenceInfo += `\n${chalk.magenta('Listening To:')} ${chalk.cyan(`${user.spotify.song}`)} by ${chalk.cyan(`${user.spotify.artist}`)} on ${chalk.cyan(`${user.spotify.album}`)}`;
+                                    }
+                                    break;
+                                case 3: // Watching
+                                    const activityKey = `${activity.type}-${activity.name}-${activity.details}`;
+                                    if (!watchedActivities.has(activityKey)) {
+                                        presenceInfo += `\n${chalk.magenta('Watching:')} ${chalk.cyan(activity.name)} - ${chalk.yellow(activity.details)}`;
+                                        watchedActivities.add(activityKey);
                                     }
                                     break;
                             }
@@ -126,34 +135,3 @@ async function main() {
 }
 
 main();
-
-// todo: add ora spinner when fetching data from Lanyard (install ora)
-// try {
-//   const spinner = ora('Fetching user presence data').start();
-//   const presenceData = await getUserPresence(userID);
-//   spinner.stop();
-
-// todo: add syntax highlighting to the JSON output for better readability using highlight.js
-//
-// if (options.json) {
-//    const jsonOutput = JSON.stringify(user, null, 2);
-//    const highlightedJSON = hljs.highlight('json', jsonOutput).value;
-//    console.log(highlightedJson);
-
-// todo: show how long the user has been playing for (ie. osu! for 2 hours)
-//
-// function millisecondsToHours(milliseconds) {
-//    return Math.floor(milliseconds / (1000 * 60 * 60));
-// }
-
-// const gameActivity = user.activities.find(activity => activity.type === 0);
-// if (gameActivity) {
-//    presenceInfo += `\n${chalk.magenta('Playing:')} ${chalk.cyan(`${gameActivity.name}`)}`;
-//    if (gameActivity.timestamps && gameActivity.timestamps.start) {
-//        const playDurationHours = millisecondsToHours(Date.now() - gameActivity.timestamps.start);
-//        presenceInfo += ` for ${chalk.cyan(`${playDurationHours} hours`)}`;
-//    }
-//}
-
-// todo: include boxen
-// todo: adjust colors
