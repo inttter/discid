@@ -82,6 +82,10 @@ async function main() {
                         const gameActivity = user.activities.find(activity => activity.type === 0);
                         if (gameActivity) {
                             presenceInfo += `\n${chalk.magenta('Playing:')} ${chalk.cyan(`${gameActivity.name}`)}`;
+                            // Check if additional details are available for the game
+                            if (gameActivity.details) {
+                                presenceInfo += ` - ${chalk.yellow(gameActivity.details)}`;
+                            }
                         }
 
                         if (user.listening_to_spotify && user.spotify) {
