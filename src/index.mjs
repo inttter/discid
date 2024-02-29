@@ -9,14 +9,24 @@ async function getUserPresence(userID) {
         const response = await axios.get(`https://api.lanyard.rest/v1/users/${userID}`);
         return response.data;
     } catch (error) {
-        console.log()
-        console.log(chalk.red(`An error occurred fetching data from the Lanyard API.`))
-        console.log()
-        console.log(`It is possible that this user ID is not in the Lanyard Discord server.`)
-        console.log(`You need a user ID that is in: https://discord.gg/lanyard`)
-        console.log()
+        console.log();
+        console.log(chalk.red(`An error occurred fetching data from the Lanyard API.`));
+        console.log();
+        console.log(`It is possible that this user ID is not in the Lanyard Discord server.`);
+        console.log(`You need a user ID that is in: https://discord.gg/lanyard`);
+        console.log();
         throw new Error(chalk.red(`${error.message}`));
     }
+}
+
+function isCustomEmoji(emoji) {
+    // if the emoji is a normal one such as 📂🌏💤, then it will show
+    // both the emoji and the text in the status.
+    //
+    // if it's a custom guild / nitro emoji, it will just show the text in the status, 
+    // to prevent the raw name of the custom emoji from showing alongside the user's status.
+    if (!emoji || typeof emoji !== 'object') return false;
+    return emoji.id && typeof emoji.id === 'string' && emoji.id.startsWith('<a:') === false;
 }
 
 async function main() {
@@ -34,7 +44,7 @@ async function main() {
                     const user = presenceData.data;
 
                     if (options.json) {
-                        console.log(JSON.stringify(user, null, 2)); // Output JSON data
+                        console.log(JSON.stringify(user, null, 2)); // outputs JSON data
                     } else {
                         let presenceInfo = `${user.discord_user.username} is `;
 
@@ -53,6 +63,15 @@ async function main() {
                                 break;
                         }
 
+                        const customStatus = user.activities.find(activity => activity.type === 4);
+                        if (customStatus) {
+                            let customStatusText = '';
+                            if (customStatus.emoji && !isCustomEmoji(customStatus.emoji)) {
+                                customStatusText = `${customStatus.emoji.name} `;
+                            }
+                            presenceInfo += `\n${chalk.magenta('Status:')} ${chalk.cyan(customStatusText)}${chalk.cyan(customStatus.state)}`;
+                        }
+
                         const gameActivity = user.activities.find(activity => activity.type === 0);
                         if (gameActivity) {
                             presenceInfo += `\n${chalk.magenta('Playing:')} ${chalk.cyan(`${gameActivity.name}`)}`;
@@ -62,14 +81,18 @@ async function main() {
                             presenceInfo += `\n${chalk.magenta('Listening To:')} ${chalk.cyan(`${user.spotify.song}`)} by ${chalk.cyan(`${user.spotify.artist}`)} on ${chalk.cyan(`${user.spotify.album}`)}`;
                         }
 
+                        const platformInfo = [];
                         if (user.active_on_discord_web) {
-                            presenceInfo += `\n${chalk.magenta('Platform:')} ${chalk.cyan('Web')}`;
+                            platformInfo.push('Web');
                         }
                         if (user.active_on_discord_desktop) {
-                            presenceInfo += `\n${chalk.magenta('Platform:')} ${chalk.cyan('Desktop')}`;
+                            platformInfo.push('Desktop');
                         }
                         if (user.active_on_discord_mobile) {
-                            presenceInfo += `\n${chalk.magenta('Platform:')} ${chalk.cyan('Mobile')}`;
+                            platformInfo.push('Mobile');
+                        }
+                        if (platformInfo.length > 0) {
+                            presenceInfo += `\n${chalk.magenta('Platform:')} ${chalk.cyan(platformInfo.join(', '))}`;
                         }
 
                         console.log();
