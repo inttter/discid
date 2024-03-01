@@ -87,11 +87,12 @@ async function main () {
             // Case 4: Custom Status
             const customStatus = user.activities.find(activity => activity.type === 4)
             if (customStatus) {
-              let customStatusText = ''
+              let customStatusText = '';
               if (customStatus.emoji && !isCustomEmoji(customStatus.emoji)) {
-                customStatusText = `${customStatus.emoji.name} `
+                customStatusText = `${customStatus.emoji.name} `;
               }
-              presenceInfo += `\n${chalk.cyan('Status:')} ${chalk.yellow(customStatusText)}${chalk.yellow(customStatus.state)}`
+              const stateText = customStatus.state ? chalk.yellow(customStatus.state) : ''; // Check if state exists
+              presenceInfo += `\n${chalk.cyan('Status:')} ${stateText ? `${chalk.yellow(customStatusText)}${stateText}` : customStatusText}`;
             }
 
             const watchedActivities = new Set()
