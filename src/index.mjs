@@ -3,6 +3,8 @@
 import axios from 'axios';
 import { program } from 'commander';
 import chalk from 'chalk';
+import ora from 'ora';
+import hljs from 'highlight.js';
 
 async function getUserPresence(userID) {
     try {
@@ -33,7 +35,12 @@ async function main() {
         .option('--json', 'Output the user\'s JSON Lanyard data')
         .action(async (userID, options) => {
             try {
+                const spinner = ora({
+                    text: chalk.blue('Fetching from Lanyard...'),
+                    spinner: 'earth'
+                }).start();
                 const presenceData = await getUserPresence(userID);
+                spinner.stop();
 
                 if (presenceData.success) {
                     const user = presenceData.data;
@@ -46,7 +53,7 @@ async function main() {
                         if (user.discord_user.discriminator && user.discord_user.discriminator !== '0') {
                             presenceInfo += `${chalk.cyan(`#${user.discord_user.discriminator}`)}`;
                         }
-                        
+
                         presenceInfo += ` is `;
 
                         switch (user.discord_status) {
