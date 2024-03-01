@@ -68,6 +68,7 @@ async function main() {
 
                         presenceInfo += ` is `;
 
+                        // Switches the text in the precenseInfo depending on the what the user.discord.status is
                         switch (user.discord_status) {
                             case 'online':
                                 presenceInfo += chalk.green('Online');
@@ -83,21 +84,29 @@ async function main() {
                                 break;
                         }
 
+                        // Case 4: Custom Status
                         const customStatus = user.activities.find(activity => activity.type === 4);
                         if (customStatus) {
                             let customStatusText = '';
                             if (customStatus.emoji && !isCustomEmoji(customStatus.emoji)) {
                                 customStatusText = `${customStatus.emoji.name} `;
                             }
-                            presenceInfo += `\n${chalk.magenta('Status:')} ${chalk.cyan(customStatusText)}${chalk.cyan(customStatus.state)}`;
+                            presenceInfo += `\n${chalk.cyan('Status:')} ${chalk.yellow(customStatusText)}${chalk.yellow(customStatus.state)}`;
                         }
 
                         const watchedActivities = new Set();
 
+                        // All the user activities are here:
+                        // ----------------------------------
+                        // Case 0: Playing a game
+                        // Case 1: Streaming on a platform (ie. Twitch)
+                        // Case 2: Listening to a song on Spotify
+                        // Case 3: Watching something (ie. an anime on Crunchyroll)
+                        // Case 4 is a custom status, see above these comments.
                         user.activities.forEach(activity => {
                             switch (activity.type) {
                                 case 0: // Playing
-                                    let gameInfo = `${chalk.magenta('Playing:')} ${chalk.cyan(activity.name)}`;
+                                    let gameInfo = `${chalk.cyan('Playing:')} ${chalk.yellow(activity.name)}`;
                                     if (activity.details) {
                                         gameInfo += ` • ${chalk.yellow(activity.details)}`;
                                     }
@@ -105,21 +114,21 @@ async function main() {
                                         const startTime = new Date(activity.timestamps.start);
                                         const endTime = activity.timestamps.end ? new Date(activity.timestamps.end) : new Date();
                                         const duration = Math.abs(endTime - startTime) / 1000;
-                                        gameInfo += ` for ${chalk.yellow(formatDuration(duration))}`;
+                                        gameInfo += ` • ${chalk.yellow(formatDuration(duration))}`;
                                     }
                                     presenceInfo += `\n${gameInfo}`;
                                     break;
                                 case 1: // Streaming
-                                    presenceInfo += `\n${chalk.magenta('Streaming:')} ${chalk.cyan(activity.name)} @ ${chalk.cyan(activity.url)}`;
+                                    presenceInfo += `\n${chalk.cyan('Streaming:')} ${chalk.yellow(activity.name)} ${chalk.yellow('@')} ${chalk.yellow(activity.url)}`;
                                     break;
                                     case 2: // Listening to Spotify
                                     if (user.listening_to_spotify && user.spotify) {
-                                        let spotifyInfo = `${chalk.magenta('Listening To:')} ${chalk.cyan(`${user.spotify.song}`)} by ${chalk.cyan(`${user.spotify.artist}`)} on ${chalk.cyan(`${user.spotify.album}`)}`;
+                                        let spotifyInfo = `${chalk.cyan('Listening To:')} ${chalk.yellow(`${user.spotify.song}`)} ${chalk.yellow('by')} ${chalk.yellow(`${user.spotify.artist}`)} ${chalk.yellow('on')} ${chalk.yellow(`${user.spotify.album}`)}`;
                                         if (user.spotify.timestamps && user.spotify.timestamps.start && user.spotify.timestamps.end) {
                                             const startTime = new Date(user.spotify.timestamps.start);
                                             const endTime = new Date(user.spotify.timestamps.end);
                                             const remainingTime = (endTime - Date.now()) / 1000;
-                                            spotifyInfo += ` • ${chalk.yellow(formatDuration(remainingTime))} remaining`;
+                                            spotifyInfo += ` • ${chalk.yellow(formatDuration(remainingTime))} ${chalk.yellow('left')}`;
                                         }
                                         presenceInfo += `\n${spotifyInfo}`;
                                     }
@@ -127,13 +136,14 @@ async function main() {
                                 case 3: // Watching
                                     const activityKey = `${activity.type}-${activity.name}-${activity.details}`;
                                     if (!watchedActivities.has(activityKey)) {
-                                        presenceInfo += `\n${chalk.magenta('Watching:')} ${chalk.cyan(activity.name)} - ${chalk.yellow(activity.details)}`;
+                                        presenceInfo += `\n${chalk.cyan('Watching:')} ${chalk.yellow(activity.name)} ${chalk.yellow('•')} ${chalk.yellow(activity.details)}`;
                                         watchedActivities.add(activityKey);
                                     }
                                     break;
                             }
                         });
 
+                        // Switches the platform depending on which user.active_... is active
                         const platformInfo = [];
                         if (user.active_on_discord_web) {
                             platformInfo.push('Web');
@@ -145,7 +155,7 @@ async function main() {
                             platformInfo.push('Mobile');
                         }
                         if (platformInfo.length > 0) {
-                            presenceInfo += `\n${chalk.magenta('Platform:')} ${chalk.cyan(platformInfo.join(', '))}`;
+                            presenceInfo += `\n${chalk.cyan('Platform:')} ${chalk.yellow(platformInfo.join(', '))}`;
                         }
 
                         console.log();
