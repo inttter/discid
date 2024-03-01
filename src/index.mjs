@@ -28,10 +28,13 @@ function isCustomEmoji(emoji) {
 function formatDuration(duration) {
     const hours = Math.floor(duration / 3600);
     const minutes = Math.floor((duration % 3600) / 60);
+    const seconds = Math.floor(duration % 60);
     if (hours > 0) {
-        return `${hours}hr ${minutes}min`;
+        return `${hours}hr ${minutes}min ${seconds}sec`;
+    } else if (minutes > 0) {
+        return `${minutes}min ${seconds}sec`;
     } else {
-        return `${minutes} minutes`;
+        return `${seconds}sec`;
     }
 }
 
@@ -109,9 +112,16 @@ async function main() {
                                 case 1: // Streaming
                                     presenceInfo += `\n${chalk.magenta('Streaming:')} ${chalk.cyan(activity.name)} @ ${chalk.cyan(activity.url)}`;
                                     break;
-                                case 2: // Listening to Spotify
+                                    case 2: // Listening to Spotify
                                     if (user.listening_to_spotify && user.spotify) {
-                                        presenceInfo += `\n${chalk.magenta('Listening To:')} ${chalk.cyan(`${user.spotify.song}`)} by ${chalk.cyan(`${user.spotify.artist}`)} on ${chalk.cyan(`${user.spotify.album}`)}`;
+                                        let spotifyInfo = `${chalk.magenta('Listening To:')} ${chalk.cyan(`${user.spotify.song}`)} by ${chalk.cyan(`${user.spotify.artist}`)} on ${chalk.cyan(`${user.spotify.album}`)}`;
+                                        if (user.spotify.timestamps && user.spotify.timestamps.start && user.spotify.timestamps.end) {
+                                            const startTime = new Date(user.spotify.timestamps.start);
+                                            const endTime = new Date(user.spotify.timestamps.end);
+                                            const remainingTime = (endTime - Date.now()) / 1000;
+                                            spotifyInfo += ` • ${chalk.yellow(formatDuration(remainingTime))} remaining`;
+                                        }
+                                        presenceInfo += `\n${spotifyInfo}`;
                                     }
                                     break;
                                 case 3: // Watching
