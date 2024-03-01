@@ -4,7 +4,6 @@ import axios from 'axios';
 import { program } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
-import hljs from 'highlight.js';
 
 async function getUserPresence(userID) {
     try {
@@ -24,6 +23,16 @@ async function getUserPresence(userID) {
 function isCustomEmoji(emoji) {
     if (!emoji || typeof emoji !== 'object') return false;
     return emoji.id && typeof emoji.id === 'string' && emoji.id.startsWith('<a:') === false;
+}
+
+function formatDuration(duration) {
+    const hours = Math.floor(duration / 3600);
+    const minutes = Math.floor((duration % 3600) / 60);
+    if (hours > 0) {
+        return `${hours}hr ${minutes}min`;
+    } else {
+        return `${minutes} minutes`;
+    }
 }
 
 async function main() {
@@ -85,10 +94,17 @@ async function main() {
                         user.activities.forEach(activity => {
                             switch (activity.type) {
                                 case 0: // Playing
-                                    presenceInfo += `\n${chalk.magenta('Playing:')} ${chalk.cyan(activity.name)}`;
+                                    let gameInfo = `${chalk.magenta('Playing:')} ${chalk.cyan(activity.name)}`;
                                     if (activity.details) {
-                                        presenceInfo += ` - ${chalk.yellow(activity.details)}`;
+                                        gameInfo += ` • ${chalk.yellow(activity.details)}`;
                                     }
+                                    if (activity.timestamps && activity.timestamps.start) {
+                                        const startTime = new Date(activity.timestamps.start);
+                                        const endTime = activity.timestamps.end ? new Date(activity.timestamps.end) : new Date();
+                                        const duration = Math.abs(endTime - startTime) / 1000;
+                                        gameInfo += ` for ${chalk.yellow(formatDuration(duration))}`;
+                                    }
+                                    presenceInfo += `\n${gameInfo}`;
                                     break;
                                 case 1: // Streaming
                                     presenceInfo += `\n${chalk.magenta('Streaming:')} ${chalk.cyan(activity.name)} @ ${chalk.cyan(activity.url)}`;
