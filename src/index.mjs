@@ -66,18 +66,18 @@ async function main () {
               presenceInfo += `${chalk.cyan(`#${user.discord_user.discriminator}`)}`
             }
 
-            presenceInfo += ' is '
+            presenceInfo += ' • '
 
             // Switches the text in the precenseInfo depending on the what the user.discord.status is
             switch (user.discord_status) {
               case 'online':
-                presenceInfo += chalk.green('Online')
+                presenceInfo += chalk.green('🟢 Online')
                 break
               case 'idle':
-                presenceInfo += chalk.yellow('Idle')
+                presenceInfo += chalk.yellow('🟡 Idle')
                 break
               case 'dnd':
-                presenceInfo += (`on ${chalk.red('Do Not Disturb')}`)
+                presenceInfo += (`${chalk.red('🔴 Do Not Disturb')}`)
                 break
               default:
                 presenceInfo += chalk.dim('Offline')
@@ -105,7 +105,7 @@ async function main () {
             // Case 3: Watching something (ie. an anime on Crunchyroll)
             // Case 4 is a custom status, see above these comments.
             user.activities.forEach(activity => {
-              let gameInfo // Moved outside the switch block
+              let gameInfo
               switch (activity.type) {
                 case 0:
                   gameInfo = `${chalk.cyan('Playing:')} ${chalk.yellow(activity.name)}`
