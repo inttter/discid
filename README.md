@@ -6,10 +6,8 @@
 
 A simple command-line tool to check a user's Discord status using Lanyard.
 
-<br>
-
 <div align="center">
-<img src="https://github.com/inttter/discid/assets/73017070/cad349eb-4eaf-4ba3-a013-3086415afaaa" width="550">
+<img src="https://github.com/inttter/discid/assets/73017070/0ba576f5-b0b3-48fb-91a2-c90525ccf0ee" width="550">
 </div>
 
 # Installation
@@ -21,7 +19,7 @@ npm install -g discid
 # Usage
 
 > [!IMPORTANT]
-> This package uses [Lanyard](https://github.com/Phineas/lanyard) to fetch user status. In order for this to work, you need the user ID of somebody who is [in the Lanyard Discord server](https://discord.com/invite/lanyard). If the user you try searching for a user that is not in the server, you will get an error reminding you of this.
+> The user must be [in the Lanyard Discord server](https://discord.com/invite/lanyard). If the user you try searching for a user that is not in the server, you will get an error reminding you of this.
 
 ```bash
 discid <userId>
@@ -42,7 +40,7 @@ discid 514106760299151372
 might return something like:
 
 ```bash
-iinter is Online
+iinter • 🟢 Online
 Listening To: Duvet by bôa on Twilight
 Platform: Desktop
 ```
@@ -62,6 +60,7 @@ Other features of user status, such as [what a user is listening to on Spotify](
 | Option  | Description |
 | ----------- | ----------- |
 | ```--json``` | Shows the formatted JSON output of the user from ```https://api.lanyard.rest/v1/users/:user_id```, replacing ```:user_id``` with the user ID you entered. |
+| ```--visit```, ```--open``` | Opens the user's profile on the Discord website. |
 
 ---
 
