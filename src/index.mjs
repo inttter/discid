@@ -4,6 +4,7 @@ import axios from 'axios'
 import { program } from 'commander'
 import chalk from 'chalk'
 import ora from 'ora'
+import open from 'open'
 
 async function getUserPresence (userID) {
   try {
@@ -45,6 +46,7 @@ async function main () {
     .usage('<userId> [--json]')
     .arguments('<userId>')
     .option('--json', 'Output the user\'s JSON Lanyard data')
+    .option('--visit, --open', 'Visit the user\'s profile on Discord')
     .action(async (userID, options) => {
       try {
         const spinner = ora({
@@ -57,8 +59,11 @@ async function main () {
         if (presenceData.success) {
           const user = presenceData.data
 
-          if (options.json) {
+          if (options.json) { // --json option
             console.log(JSON.stringify(user, null, 2))
+          } else if (options.visit || options.open) { // --visit or --open options
+            await open(`https://discord.com/users/${userID}`)
+            console.log(chalk.green(`Opened ${user.discord_user.username}'s profile in your browser!`))
           } else {
             let presenceInfo = `${user.discord_user.username}`
 
@@ -87,12 +92,12 @@ async function main () {
             // Case 4: Custom Status
             const customStatus = user.activities.find(activity => activity.type === 4)
             if (customStatus) {
-              let customStatusText = '';
+              let customStatusText = ''
               if (customStatus.emoji && !isCustomEmoji(customStatus.emoji)) {
-                customStatusText = `${customStatus.emoji.name} `;
+                customStatusText = `${customStatus.emoji.name} `
               }
-              const stateText = customStatus.state ? chalk.yellow(customStatus.state) : ''; // Check if state exists
-              presenceInfo += `\n${chalk.cyan('Status:')} ${stateText ? `${chalk.yellow(customStatusText)}${stateText}` : customStatusText}`;
+              const stateText = customStatus.state ? chalk.yellow(customStatus.state) : ''
+              presenceInfo += `\n${chalk.cyan('Status:')} ${stateText ? `${chalk.yellow(customStatusText)}${stateText}` : customStatusText}`
             }
 
             const watchedActivities = new Set()
