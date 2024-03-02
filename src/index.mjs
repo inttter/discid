@@ -43,10 +43,10 @@ async function main () {
   program
     .name('discid')
     .description('Check a user\'s Discord status from the command line.')
-    .usage('<userId> [--json]')
+    .usage('<userId> [--option]')
     .arguments('<userId>')
-    .option('--json', 'Output the user\'s JSON Lanyard data')
-    .option('--visit, --open', 'Visit the user\'s profile on Discord')
+    .option('--json', 'output the user\'s full lanyard data in json format')
+    .option('--visit, --open', 'visit the user\'s profile on Discord')
     .action(async (userID, options) => {
       try {
         const spinner = ora({
