@@ -73,7 +73,7 @@ async function main () {
 
             presenceInfo += ' • '
 
-            // Switches the text in the precenseInfo depending on the what the user.discord.status is
+            // Switches the text in the presenceInfo depending on the what the user.discord.status is
             switch (user.discord_status) {
               case 'online':
                 presenceInfo += chalk.green('🟢 Online')
