@@ -112,10 +112,13 @@ async function main () {
             user.activities.forEach(activity => {
               let gameInfo
               switch (activity.type) {
-                case 0:
+                case 0: // Playing a game
                   gameInfo = `${chalk.cyan('Playing:')} ${chalk.yellow(activity.name)}`
                   if (activity.details) {
                     gameInfo += ` • ${chalk.yellow(activity.details)}`
+                  }
+                  if (activity.state) {
+                    gameInfo += ` • ${chalk.yellow(activity.state)}`
                   }
                   if (activity.timestamps && activity.timestamps.start) {
                     const startTime = new Date(activity.timestamps.start)
