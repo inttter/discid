@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import ora from 'ora'
 import open from 'open'
 
-async function getUserPresence (userID) {
+async function getUserPresence(userID) {
   try {
     const response = await axios.get(`https://api.lanyard.rest/v1/users/${userID}`)
     return response.data
@@ -17,7 +17,9 @@ async function getUserPresence (userID) {
     console.log('It is possible that this user ID is not in the Lanyard Discord server.')
     console.log('You need a user ID that is in: https://discord.gg/lanyard')
     console.log()
-    throw new Error(chalk.red(`${error.message}`))
+    console.error(chalk.red(error.message))
+    console.log()
+    process.exit(1); // to prevent from infinitely running
   }
 }
 
