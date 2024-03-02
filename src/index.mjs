@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import ora from 'ora'
 import open from 'open'
 
-async function getUserPresence(userID) {
+async function getUserPresence (userID) {
   try {
     const response = await axios.get(`https://api.lanyard.rest/v1/users/${userID}`)
     return response.data
@@ -19,13 +19,13 @@ async function getUserPresence(userID) {
     console.log()
     console.error(chalk.red(error.message))
     console.log()
-    process.exit(1); // to prevent from infinitely running
+    process.exit(1) // to prevent from infinitely running
   }
 }
 
 function isCustomEmoji (emoji) {
   if (!emoji || typeof emoji !== 'object') return false
-  return emoji.id && typeof emoji.id === 'string' && emoji.id.startsWith('<a:') === false
+  return emoji.id && typeof emoji.id === 'string' && !emoji.id.startsWith('<a:')
 }
 
 function formatDuration (duration) {
@@ -51,6 +51,31 @@ async function main () {
     .option('--visit, --open', 'visit the user\'s profile on Discord')
     .action(async (userID, options) => {
       try {
+        if (options.json) {
+          const spinner = ora({
+            text: chalk.blue('Fetching from Lanyard...'),
+            spinner: 'earth'
+          }).start()
+          const presenceData = await getUserPresence(userID)
+          spinner.stop()
+
+          if (presenceData && presenceData.success) {
+            console.log(JSON.stringify(presenceData.data, null, 2))
+          } else {
+            console.log('The presence of the user could not be found, or the API request failed.')
+          }
+          return
+        }
+
+        if (options.visit || options.open) {
+          const profileURL = `https://discord.com/users/${userID}`
+          await open(profileURL)
+          console.log()
+          console.log(chalk.green(`✅ Opened this user's profile in your browser!`))
+          console.log()
+          return // Exit early
+        }
+
         const spinner = ora({
           text: chalk.blue('Fetching from Lanyard...'),
           spinner: 'earth'
@@ -58,15 +83,9 @@ async function main () {
         const presenceData = await getUserPresence(userID)
         spinner.stop()
 
-        if (presenceData.success) {
+        if (presenceData && presenceData.success) {
           const user = presenceData.data
 
-          if (options.json) { // --json option
-            console.log(JSON.stringify(user, null, 2))
-          } else if (options.visit || options.open) { // --visit or --open options
-            await open(`https://discord.com/users/${userID}`)
-            console.log(chalk.green(`Opened ${user.discord_user.username}'s profile in your browser!`))
-          } else {
             let presenceInfo = `${user.discord_user.username}`
 
             if (user.discord_user.discriminator && user.discord_user.discriminator !== '0') {
@@ -172,7 +191,6 @@ async function main () {
             console.log()
             console.log(presenceInfo)
             console.log()
-          }
         } else {
           console.log('The presence of the user could not be found, or the API request failed.')
         }
