@@ -87,7 +87,7 @@ async function main () {
 
             let presenceInfo = `${user.discord_user.username}`
 
-            if (user.discord_user.discriminator && user.discord_user.discriminator !== '0') {
+            if (user.discord_user.discriminator !== '0') {
               presenceInfo += `${chalk.cyan(`#${user.discord_user.discriminator}`)}`
             }
 
