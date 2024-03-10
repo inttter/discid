@@ -96,13 +96,13 @@ async function main () {
             // Switches the text in the presenceInfo depending on the what the user.discord.status is
             switch (user.discord_status) {
               case 'online':
-                presenceInfo += chalk.green('🟢 Online')
+                presenceInfo += chalk.hex('#00D26A')('🟢 Online')
                 break
               case 'idle':
-                presenceInfo += chalk.yellow('🟡 Idle')
+                presenceInfo += chalk.hex('#FCD53F')('🟡 Idle')
                 break
               case 'dnd':
-                presenceInfo += (`${chalk.red('🔴 Do Not Disturb')}`)
+                presenceInfo += (`${chalk.hex('#F8312F')('🔴 Do Not Disturb')}`)
                 break
               default:
                 presenceInfo += chalk.dim('Offline')
