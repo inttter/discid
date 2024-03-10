@@ -5,6 +5,7 @@ import { program } from 'commander'
 import chalk from 'chalk'
 import ora from 'ora'
 import open from 'open'
+import consola from 'consola';
 
 async function getUserPresence (userID) {
   try {
@@ -12,12 +13,10 @@ async function getUserPresence (userID) {
     return response.data
   } catch (error) {
     console.log()
-    console.log(chalk.red('An error occurred fetching data from the Lanyard API.'))
+    consola.error(chalk.red(`An error occurred fetching data from the Lanyard API: ${error.message}`))
     console.log()
-    console.log('It is possible that this user ID is not in the Lanyard Discord server.')
-    console.log('You need a user ID that is in: https://discord.gg/lanyard')
-    console.log()
-    console.error(chalk.red(error.message))
+    consola.info(`It is possible that this user ID is not in the Lanyard Discord server, ${chalk.cyan('https://discord.gg/lanyard')}`)
+    consola.info(`Instructions on how to find a user ID: ${chalk.cyan('https://github.com/inttter/discid?tab=readme-ov-file#usage')}`)
     console.log()
     process.exit(1) // to prevent from infinitely running
   }
@@ -62,7 +61,7 @@ async function main () {
           if (presenceData && presenceData.success) {
             console.log(JSON.stringify(presenceData.data, null, 2))
           } else {
-            console.log('The presence of the user could not be found, or the API request failed.')
+            consola.error('The presence of the user could not be found, or the API request failed.')
           }
           return
         }
@@ -192,10 +191,10 @@ async function main () {
             console.log(presenceInfo)
             console.log()
         } else {
-          console.log('The presence of the user could not be found, or the API request failed.')
+          consola.error('The presence of the user could not be found, or the API request failed.')
         }
       } catch (error) {
-        console.error(error.message)
+        consola.error(`An error occurred: ${error.message}`)
       }
     })
 
