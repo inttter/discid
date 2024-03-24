@@ -53,7 +53,7 @@ as the status of the user is "Online" and listening to the song in question at t
 
 <br>
 
-Other features of user status, such as [what a user is listening to on Spotify](https://github.com/inttter/inttter/assets/73017070/772bdd2a-e95d-4193-947d-8ddd3c709bb8), is supported. It shows the song name, artist, and album. [Game statuses are also supported](https://github.com/inttter/inttter/assets/73017070/3b9e937e-b768-4724-bc03-c665395d3954), including details such as what map you are playing, what round you are on, and more. This reads ```gameActivity.details``` and outputs what is there.
+For more in-depth information about what can be displayed, check out the [blog post](https://iinter.me/blog/using-discid) I made.
 
 # Options
 
