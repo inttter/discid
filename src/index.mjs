@@ -187,6 +187,8 @@ async function main () {
               presenceInfo += `\n${chalk.cyan('Platform:')} ${chalk.yellow(platformInfo.join(', '))}`
             }
 
+            presenceInfo += `\n${chalk.cyan('Avatar URL:')} ${user.discord_user.avatar ? chalk.yellow(`https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.png`) : 'Not Available'}`;
+
             console.log()
             console.log(presenceInfo)
             console.log()
