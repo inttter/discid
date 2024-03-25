@@ -165,7 +165,8 @@ async function main () {
                 case 3: // Watching
                   const activityKey = `${activity.type}-${activity.name}-${activity.details}`
                   if (!watchedActivities.has(activityKey)) {
-                    presenceInfo += `\n${chalk.cyan('Watching:')} ${chalk.yellow(activity.name)} ${chalk.yellow('•')} ${chalk.yellow(activity.details)}`
+                    let details = activity.details ? ` • ${chalk.yellow(activity.details)}` : ''; // check if details exist first
+                    presenceInfo += `\n${chalk.cyan('Watching:')} ${chalk.yellow(activity.name)}${details}`; // Include details if available
                     watchedActivities.add(activityKey)
                   }
                   break
