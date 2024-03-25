@@ -16,7 +16,7 @@ async function getUserPresence (userID) {
     consola.error(chalk.red(`An error occurred fetching data from the Lanyard API: ${error.message}`))
     console.log()
     consola.info(`It is possible that this user ID is not in the Lanyard Discord server, ${chalk.cyan('https://discord.gg/lanyard')}`);
-    consola.info(`Instructions on how to find a user ID: ${chalk.cyan('https://github.com/inttter/discid?tab=readme-ov-file#usage')}`);
+    consola.info(`Instructions on how to find a user ID: ${chalk.cyan('https://iinter.me/blog/using-discid#how-do-you-find-a-user-id')}`);
     console.log()
     process.exit(1) // to prevent from infinitely running
   }
