@@ -43,6 +43,7 @@ might return something like:
 iinter • 🟢 Online
 Listening To: Duvet by bôa on Twilight
 Platform: Desktop
+Avatar URL: https://cdn.discordapp.com/avatars/514106760299151372/d14e90a16144987f53f5a3700aacc934.png
 ```
 
 as the status of the user is "Online" and listening to the song in question at the time the command was ran:
@@ -53,7 +54,7 @@ as the status of the user is "Online" and listening to the song in question at t
 
 <br>
 
-For more in-depth information about what can be displayed, check out the [blog post](https://iinter.me/blog/using-discid) I made.
+For more in-depth information about what can be displayed, check out [this section](https://iinter.me/blog/using-discid#what-else) of the blog post I made.
 
 # Options
 
