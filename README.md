@@ -62,6 +62,7 @@ For more in-depth information about what can be displayed, check out [this secti
 | ----------- | ----------- |
 | ```--json``` | Shows the formatted JSON output of the user from ```https://api.lanyard.rest/v1/users/:user_id```, replacing ```:user_id``` with the user ID you entered. |
 | ```--visit```, ```--open``` | Opens the user's profile on the Discord website. |
+| ```--kv``` | Output's the user's Lanyard key-value pairs (see [here](https://github.com/Phineas/lanyard?tab=readme-ov-file#kv)). |
 
 ---
 
