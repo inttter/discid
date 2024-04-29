@@ -1,6 +1,6 @@
 {
   "name": "discid",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Check a user's Discord status from the command line using Lanyard.",
   "main": "index.mjs",
   "scripts": {
@@ -21,11 +21,11 @@
   "author": "Inter",
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "chalk": "^5.3.0",
     "commander": "^12.0.0",
     "consola": "^3.2.3",
-    "open": "^10.0.4",
+    "open": "^10.1.0",
     "ora": "^8.0.1"
   },
   "bin": {
