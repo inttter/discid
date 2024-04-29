@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://github.com/inttter/inttter/assets/73017070/ca176360-4ceb-4a68-b55a-acf9473efe96" width="450">
+  <img src="https://github.com/inttter/discid/assets/73017070/c37fde61-3d46-4b9f-9ce5-b0bbe1f54e0d" width="450">
 </div>
 
 # discid
@@ -7,7 +7,7 @@
 A simple command-line tool to check a user's Discord status using Lanyard.
 
 <div align="center">
-<img src="https://github.com/inttter/discid/assets/73017070/0ba576f5-b0b3-48fb-91a2-c90525ccf0ee" width="550">
+  <img src="https://github.com/inttter/discid/assets/73017070/0ba576f5-b0b3-48fb-91a2-c90525ccf0ee" width="550">
 </div>
 
 # Installation
@@ -54,7 +54,7 @@ as the status of the user is "Online" and listening to the song in question at t
 
 <br>
 
-For more in-depth information about what can be displayed, check out [this section](https://iinter.me/blog/using-discid#what-else) of the blog post I made.
+For more in-depth information about what can be displayed, click [here](https://iinter.me/blog/using-discid#what-else).
 
 # Options
 
