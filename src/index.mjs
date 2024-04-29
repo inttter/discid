@@ -36,7 +36,7 @@ function formatDuration(duration) {
     } else if (minutes > 0) {
         return `${minutes}min ${seconds}sec`
     } else {
-        return `${seconds}sec`
+        return `${seconds} seconds`
     }
 }
 
@@ -169,7 +169,7 @@ async function main() {
                                     const startTime = new Date(activity.timestamps.start)
                                     const endTime = activity.timestamps.end ? new Date(activity.timestamps.end) : new Date()
                                     const duration = Math.abs(endTime - startTime) / 1000
-                                    gameInfo += ` • ${chalk.yellow(formatDuration(duration))}`
+                                    gameInfo += ` • ${chalk.yellow(`for ${formatDuration(duration)}`)}`;
                                 }
                                 presenceInfo += `\n${gameInfo}`
                                 break
