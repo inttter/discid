@@ -28,7 +28,7 @@ discid <userId>
 In order to find the ```<userId>``` of a user:
 
 * Enable Developer mode by going to: **Settings** ➔ **Advanced** ➔ **Developer Mode**, and check the toggle.
-* Right click on a user and click [```Copy User ID```](https://iinter.me/writing/using-discid/copy-user-id.png)
+* Right click on a user and click [```Copy User ID```](https://iinter.me/images/using-discid/copy-user-id.png)
 * Go back to your command line and run ```discid <userId>``` replacing ```<userId>``` with the ID you copied.
 
 For example:
