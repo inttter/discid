@@ -28,7 +28,7 @@ discid <userId>
 In order to find the ```<userId>``` of a user:
 
 * Enable Developer mode by going to: **Settings** ➔ **Advanced** ➔ **Developer Mode**, and check the toggle.
-* Right click on a user and click [```Copy User ID```](https://github.com/inttter/inttter/assets/73017070/0ffacc8d-06c9-4521-97eb-62295aa67b73)
+* Right click on a user and click [```Copy User ID```](https://iinter.me/writing/using-discid/copy-user-id.png)
 * Go back to your command line and run ```discid <userId>``` replacing ```<userId>``` with the ID you copied.
 
 For example:
@@ -54,7 +54,7 @@ as the status of the user is "Online" and listening to the song in question at t
 
 <br>
 
-For more in-depth information about what can be displayed, click [here](https://iinter.me/blog/using-discid#what-else).
+For more in-depth information about what can be displayed, click [here](https://iinter.me/writing/using-discid#what-else).
 
 # Options
 
