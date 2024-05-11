@@ -11,13 +11,9 @@ async function getUserPresence(userID) {
     try {
         const response = await axios.get(`https://api.lanyard.rest/v1/users/${userID}`)
         return response.data
-    } catch (error) {
+    } catch (error) {        
         console.log()
-        consola.error(chalk.red(`An error occurred fetching data from the Lanyard API: ${error.message}`))
-        console.log()
-        consola.info(`It is possible that this user ID is not in the Lanyard Discord server, ${chalk.cyan('https://discord.gg/lanyard')}`);
-        consola.info(`Instructions on how to find a user ID: ${chalk.cyan('https://iinter.me/writing/using-discid#how-do-you-find-a-user-id')}`);
-        console.log()
+        consola.error(new Error(chalk.red(`An error occurred fetching data from the Lanyard API: ${error.message}`)))
         process.exit(1) // to prevent from infinitely running
     }
 }
@@ -62,7 +58,7 @@ async function main() {
                     if (presenceData && presenceData.success) {
                         console.log(JSON.stringify(presenceData.data, null, 2))
                     } else {
-                        consola.error('The presence of the user could not be found, or the API request failed.')
+                        consola.error(new Error('The presence of the user could not be found, or the API request failed.'))
                     }
                     return
                 }
@@ -87,7 +83,7 @@ async function main() {
                       const kvPairs = Object.entries(user.kv || {});
                 
                       if (kvPairs.length === 0 || Object.keys(kvPairs[0][1]).length === 0) {
-                          consola.error(chalk.red(`This user has no KV.`));
+                          consola.error(new Error(chalk.red(`Could not find any key-value pairs from this user. They most likely do not have any set.`)));
                       } else {
                           console.log(chalk.bold.blue(`\nKV of ${user.discord_user.username}:\n`));
                           for (const [key, value] of kvPairs) {
@@ -95,7 +91,7 @@ async function main() {
                           }
                       }
                   } else {
-                      consola.error('The presence of the user could not be found, or the API request failed.');
+                      consola.error(new Error('The presence of the user could not be retrieved.'));
                   }
                   return;
               }
@@ -217,10 +213,10 @@ async function main() {
 
                     console.log(`\n${presenceInfo}\n`)
                 } else {
-                    consola.error('The presence of the user could not be found, or the API request failed.')
+                    consola.error(new Error('The presence of the user could not be retrieved.'));
                 }
             } catch (error) {
-                consola.error(`An error occurred: ${error.message}`)
+                consola.error(new Error(`An error occurred: ${error.message}`));
             }
         })
 
