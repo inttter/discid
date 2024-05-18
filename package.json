@@ -1,7 +1,7 @@
 {
   "name": "discid",
-  "version": "1.4.2",
-  "description": "Check a user's Discord status from the command line using Lanyard.",
+  "version": "1.5.0",
+  "description": "A command-line tool to check a user's Discord status using Lanyard.",
   "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,10 +11,6 @@
     "status",
     "user",
     "presence",
-    "online",
-    "offline",
-    "idle",
-    "game",
     "spotify",
     "lanyard"
   ],
@@ -33,7 +29,7 @@
     "discid": "src/index.mjs"
   },
   "funding": {
-    "type": "individual",
+    "type": "github",
     "url": "https://github.com/sponsors/inttter"
   },
   "repository": {
@@ -43,5 +39,6 @@
   "bugs": {
     "url": "https://github.com/inttter/discid/issues"
   },
-  "type": "module"
+  "type": "module",
+  "homepage": "https://discid.xyz"
 }
