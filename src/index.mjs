@@ -6,6 +6,7 @@ import chalk from 'chalk'
 import ora from 'ora'
 import open from 'open'
 import consola from 'consola'
+import { highlight } from 'cli-highlight'
 
 async function getUserPresence(userID) {
     try {
@@ -56,7 +57,7 @@ async function main() {
                     spinner.stop()
 
                     if (presenceData && presenceData.success) {
-                        console.log(JSON.stringify(presenceData.data, null, 2))
+                        console.log(highlight(JSON.stringify(presenceData.data, null, 2), { language: 'json', theme: 'dracula' }))
                     } else {
                         consola.error(new Error('The presence of the user could not be found, or the API request failed.'))
                     }
