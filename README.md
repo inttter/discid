@@ -4,6 +4,11 @@
 
 # discid
 
+[![Downloads](https://img.shields.io/npm/dw/discid.svg?style=flat&colorA=black&colorB=5865F2)](https://npmjs.org/package/discid)
+[![Version](https://img.shields.io/npm/v/discid.svg?style=flat&colorA=black&colorB=5865F2)](https://www.npmjs.com/package/discid)
+[![License](https://shields.io/github/license/inttter/discid?labelColor=black&colorB=5865F2)](https://github.com/inttter/discid/blob/master/LICENSE/)
+[![Post](https://img.shields.io/badge/read-post-f39f37?labelColor=black&colorB=5865F2)](https://iinter.me/writing/using-discid)
+
 A simple command-line tool to check a user's Discord status using [Lanyard](https://github.com/Phineas/lanyard), and get an output in a readable format.
 
 <div align="center">
@@ -25,7 +30,7 @@ npm install -g discid
 discid [userID]
 ```
 
-You will need to replace `[userId]` with the ID of the user you are trying to fetch the status of. If you want an guide with images, visit [this section](https://iinter.me/writing/using-discid#how-do-you-find-a-user-id) of my post, otherwise, you can follow these steps.
+You will need to replace `[userID]` with the ID of the user you are trying to fetch the status of. If you want an guide with images, visit [this section](https://iinter.me/writing/using-discid#how-do-you-find-a-user-id) of my post, otherwise, you can follow these steps.
 
 1. Enable Developer mode by going to **Settings** ➔ **Advanced** ➔ **Developer Mode**, and check the toggle.
 
@@ -48,7 +53,7 @@ Platform: Desktop
 Avatar URL: https://cdn.discordapp.com/avatars/514106760299151372/d14e90a16144987f53f5a3700aacc934.png
 ```
 
-These are returned because the status of the user is set to **'Online'** and they are listening to the song **'Duvet by bôa'** at the time the command was ran.
+These are returned because the status of the user is set to **'Online'** and they are listening to the song **'Duvet'** by **'bôa'** at the time the command was ran.
 
 <div align="center">
   <img src="https://github.com/inttter/discid/assets/73017070/fc9dcd40-b2e0-4da6-97e8-2a518336b988" width="250" alt="Discord profile">
