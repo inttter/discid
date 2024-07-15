@@ -39,12 +39,12 @@ function formatDuration(duration) {
 
 program
     .name('discid')
-    .description('Check a user\'s Discord status from the command line.')
-    .usage('<userId> [--option]')
-    .arguments('<userId>')
-    .option('--json', 'output the user\'s full lanyard data in json format')
-    .option('--visit, --open', 'visit the user\'s profile on Discord')
-    .option('--kv', 'output the user\'s Lanyard key-value pairs')
+    .description('A command-line tool to check a user\'s Discord status using Lanyard.')
+    .usage('[userId] [--option]')
+    .arguments('[userId]')
+    .option('--json', 'output the user\'s full lanyard data response in json format')
+    .option('--visit, --open', 'visit the user\'s profile on Discord (any user)')
+    .option('--kv', 'output the user\'s Lanyard key-value (KV) pairs')
     .action(async(userID, options) => {
         try {
             if (options.json) {
