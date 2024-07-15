@@ -7,6 +7,7 @@ import ora from 'ora';
 import open from 'open';
 import consola from 'consola';
 import { highlight } from 'cli-highlight';
+import copy from 'clipboardy';
 
 async function getUserPresence(userID) {
     try {
@@ -57,7 +58,16 @@ program
                 spinner.stop();
 
                 if (presenceData && presenceData.success) {
-                    console.log(highlight(JSON.stringify(presenceData.data, null, 2), { language: 'json', theme: 'dracula' }));
+                    const responseData = JSON.stringify(presenceData.data, null, 2);
+                    console.log(highlight(responseData, { language: 'json', theme: 'dracula' }));
+                    
+                    try {
+                        await copy.write(responseData);
+                        console.log();
+                        console.log(chalk.green('✔️  Successfully copied response to your clipboard!'));
+                    } catch (error) {
+                        consola.error(new Error('Could not copy response to clipboard:', error));
+                    }
                 } else {
                     consola.error(new Error('The presence of the user could not be found, or the API request failed.'));
                 }
