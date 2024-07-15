@@ -115,6 +115,10 @@ program
                     presenceInfo += `${chalk.cyan(`#${user.discord_user.discriminator}`)}`;
                 }
 
+                if (user.discord_user.global_name) {
+                    presenceInfo += `${chalk.dim(` (${user.discord_user.global_name})`)}`;
+                }
+
                 presenceInfo += ' • ';
 
                 // switches the text in the `presenceInfo` depending on the what the `user.discord.status` value is
@@ -212,7 +216,7 @@ program
                     presenceInfo += `\n${chalk.cyan('Platform:')} ${chalk.yellow(platformInfo.join(', '))}`;
                 }
 
-                presenceInfo += `\n${chalk.cyan('Avatar URL:')} ${user.discord_user.avatar ? chalk.yellow(`https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.${user.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}`) : chalk.red('⚠️  Unavailable')}`;
+                presenceInfo += `\n${chalk.cyan('Avatar URL:')} ${user.discord_user.avatar ? chalk.yellow(`https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.${user.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}`) : chalk.red('Unknown')}`;
 
                 console.log(`\n${presenceInfo}\n`);
             } else {
