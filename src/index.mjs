@@ -176,52 +176,52 @@ program
                             presenceInfo += `\n${chalk.cyan('Streaming:')} ${chalk.yellow(activity.name)} ${chalk.yellow('@')} ${chalk.yellow(activity.url)}`;
                             break;
                         case 2: // Listening to Spotify
-                        if (user.listening_to_spotify && user.spotify) {
-                            let spotifyInfo = `${chalk.cyan('Listening To:')} ${chalk.yellow(`${user.spotify.song}`)} ${chalk.yellow('by')} ${chalk.yellow(`${user.spotify.artist}`)} ${chalk.yellow('on')} ${chalk.yellow(`${user.spotify.album}`)}`;
-                            if (user.spotify.timestamps && user.spotify.timestamps.start && user.spotify.timestamps.end) {
-                                const endTime = new Date(user.spotify.timestamps.end);
-                                const remainingTime = (endTime - Date.now()) / 1000;
-                                spotifyInfo += ` • ${chalk.yellow(formatDuration(remainingTime))} ${chalk.yellow('left')}`;
+                            if (user.listening_to_spotify && user.spotify) {
+                                let spotifyInfo = `${chalk.cyan('Listening To:')} ${chalk.yellow(`${user.spotify.song}`)} ${chalk.yellow('by')} ${chalk.yellow(`${user.spotify.artist}`)} ${chalk.yellow('on')} ${chalk.yellow(`${user.spotify.album}`)}`;
+                                if (user.spotify.timestamps && user.spotify.timestamps.start && user.spotify.timestamps.end) {
+                                    const endTime = new Date(user.spotify.timestamps.end);
+                                    const remainingTime = (endTime - Date.now()) / 1000;
+                                    spotifyInfo += ` • ${chalk.yellow(formatDuration(remainingTime))} ${chalk.yellow('left')}`;
+                                }
+                                presenceInfo += `\n${spotifyInfo}`;
                             }
-                            presenceInfo += `\n${spotifyInfo}`;
-                        }
-                        break;
-                    case 3: // Watching
-                        const activityKey = `${activity.type}-${activity.name}-${activity.details}`;
-                        if (!watchedActivities.has(activityKey)) {
-                            let details = activity.details ? ` • ${chalk.yellow(activity.details)}` : ''; // check if details exist first
-                            presenceInfo += `\n${chalk.cyan('Watching:')} ${chalk.yellow(activity.name)}${details}`; // include details if available
-                            watchedActivities.add(activityKey);
-                        }
-                        break;
+                            break;
+                        case 3: // Watching
+                            const activityKey = `${activity.type}-${activity.name}-${activity.details}`;
+                            if (!watchedActivities.has(activityKey)) {
+                                let details = activity.details ? ` • ${chalk.yellow(activity.details)}` : ''; // check if details exist first
+                                presenceInfo += `\n${chalk.cyan('Watching:')} ${chalk.yellow(activity.name)}${details}`; // include details if available
+                                watchedActivities.add(activityKey);
+                            }
+                            break;
+                    }
+                });
+
+                // switches the platform depending on what the `user.active` value is
+                const platformInfo = [];
+                if (user.active_on_discord_web) {
+                    platformInfo.push('Web');
                 }
-            });
+                if (user.active_on_discord_desktop) {
+                    platformInfo.push('Desktop');
+                }
+                if (user.active_on_discord_mobile) {
+                    platformInfo.push('Mobile');
+                }
+                if (platformInfo.length > 0) {
+                    presenceInfo += `\n${chalk.cyan('Platform:')} ${chalk.yellow(platformInfo.join(', '))}`;
+                }
 
-            // switches the platform depending on what the `user.active` value is
-            const platformInfo = [];
-            if (user.active_on_discord_web) {
-                platformInfo.push('Web');
-            }
-            if (user.active_on_discord_desktop) {
-                platformInfo.push('Desktop');
-            }
-            if (user.active_on_discord_mobile) {
-                platformInfo.push('Mobile');
-            }
-            if (platformInfo.length > 0) {
-                presenceInfo += `\n${chalk.cyan('Platform:')} ${chalk.yellow(platformInfo.join(', '))}`;
-            }
+                presenceInfo += `\n${chalk.cyan('Avatar URL:')} ${user.discord_user.avatar ? chalk.yellow(`https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.${user.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}`) : chalk.red('⚠️  Unavailable')}`;
 
-            presenceInfo += `\n${chalk.cyan('Avatar URL:')} ${user.discord_user.avatar ? chalk.yellow(`https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.png`) : chalk.red('⚠️  Unavailable')}`;
-
-            console.log(`\n${presenceInfo}\n`);
-        } else {
-            consola.error(new Error('The presence of the user could not be retrieved.'));
+                console.log(`\n${presenceInfo}\n`);
+            } else {
+                consola.error(new Error('The presence of the user could not be retrieved.'));
+            }
+        } catch (error) {
+            consola.error(new Error(`An error occurred: ${error.message}`));
         }
-    } catch (error) {
-        consola.error(new Error(`An error occurred: ${error.message}`));
-    }
-});
+    });
 
 program.parse(process.argv);
 
