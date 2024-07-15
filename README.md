@@ -12,7 +12,7 @@
 A simple command-line tool to check a user's Discord status using [Lanyard](https://github.com/Phineas/lanyard), and get an output in a readable format.
 
 <div align="center">
-  <img src="https://github.com/inttter/discid/assets/73017070/1cb1a0df-e562-4fdc-ae11-e9a0be7e8ef8" width="750" alt="Example of running command">
+  <img src="https://github.com/user-attachments/assets/aafd304d-577b-4700-af48-9608d4c3b7fd" width="750" alt="Example of running command">
 </div>
 
 # Installation
@@ -24,13 +24,13 @@ npm install -g discid
 # Usage
 
 > [!IMPORTANT]
-> The user must be in the [Lanyard Discord server](https://discord.com/invite/lanyard) in order to retrieve information about the user.
+> The user must be in the [Lanyard Discord server](https://discord.com/invite/lanyard) in order to retrieve information about them.
 
 ```bash
 discid [userID]
 ```
 
-You will need to replace `[userID]` with the ID of the user you are trying to fetch the status of. If you want an guide with images, visit [this section](https://iinter.me/writing/using-discid#how-do-you-find-a-user-id) of my post, otherwise, you can follow these steps.
+You will need to replace `[userID]` with the ID of the user you are trying to fetch the status of. If you want an guide with images, visit [this page](https://iinter.me/writing/using-discid#how-do-you-find-a-user-id), otherwise, you can follow these steps.
 
 1. Enable Developer mode by going to **Settings** ➔ **Advanced** ➔ **Developer Mode**, and check the toggle.
 
@@ -38,7 +38,7 @@ You will need to replace `[userID]` with the ID of the user you are trying to fe
 
 3. Go back to your command line and run the same command from above, replacing `[userID]` with the ID you copied.
 
-For example, to check the status of the user 'iinter', you can run the following command:
+For example, to check the status of the user `iinter`, you can run the following command:
 
 ```bash
 discid 514106760299151372
@@ -47,7 +47,7 @@ discid 514106760299151372
 Depending on what the user is doing, the otuput might return different things. Here is an example of what may be retuned:
 
 ```bash
-iinter • 🟢 Online
+iinter (lunar) • 🟢 Online
 Listening To: Duvet by bôa on Twilight
 Platform: Desktop
 Avatar URL: https://cdn.discordapp.com/avatars/514106760299151372/d14e90a16144987f53f5a3700aacc934.png
@@ -61,15 +61,15 @@ These are returned because the status of the user is set to **'Online'** and the
 
 <br>
 
-To see everything that can be displayed and more detailed information, read [this section](https://iinter.me/writing/using-discid#what-else) of my post.
+To see everything that can be displayed and more detailed information, see [this page](https://iinter.me/writing/using-discid#what-else).
 
 # Options
 
 | Option  | Description |
 | ----------- | ----------- |
-| `--json` | Shows a formatted JSON output of information about the user from `https://api.lanyard.rest/v1/users/:user_id`, replacing `:user_id` with the user ID you entered. |
-| `--visit`, `--open` | Opens the user's profile on the Discord website (in your browser). |
-| `--kv` | Output's the user's Lanyard key-value pairs (see [here](https://github.com/Phineas/lanyard?tab=readme-ov-file#kv) for more information). |
+| `--json` | Shows a formatted, syntax-highlighted JSON response of information about the user from `https://api.lanyard.rest/v1/users/:user_id`, replacing `:user_id` with the user ID you entered. |
+| `--visit`, `--open` | Opens the user's profile on the Discord website (in your browser). **This works with any user on Discord.** |
+| `--kv` | Output's the user's Lanyard key-value (KV) pairs (see [here](https://github.com/Phineas/lanyard?tab=readme-ov-file#kv) for more information). |
 
 ---
 
