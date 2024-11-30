@@ -18,6 +18,12 @@ program
   .option('--visit, --open', 'visit the user\'s profile on Discord (any user)')
   .option('--kv', 'output the user\'s Lanyard key-value (KV) pairs')
   .action(async(userID, options) => {
+    // Show an error if no userID is given
+    if (!userID) {
+      consola.error(chalk.red(`No user ID was provided. Specify a user's ID as the first argument to retrieve their status.`));
+      process.exit(1);
+    }
+
     try {
       // --json
       if (options.json) {
