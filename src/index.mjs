@@ -173,7 +173,6 @@ program
                 const spotifyInfo = [
                   `${chalk.cyan('Listening To:')} ${chalk.yellow(user.spotify.song)}`,
                   `${chalk.yellow('by')} ${chalk.yellow(user.spotify.artist)}`,
-                  `${chalk.yellow('on')} ${chalk.yellow(user.spotify.album)}`
                 ].join(' ');
         
                 if (user.spotify.timestamps?.start && user.spotify.timestamps?.end) {
@@ -216,7 +215,7 @@ program
 
         presenceInfo += `\n${chalk.cyan('Avatar URL:')} ${
           user.discord_user.avatar 
-            ? chalk.yellow(`https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.${user.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}`) 
+            ? chalk.yellow(`https://api.lanyard.rest/${user.discord_user.id}.${user.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}`) 
             : chalk.red('Unknown')
         }`;
 
