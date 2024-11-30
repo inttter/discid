@@ -108,7 +108,7 @@ program
           presenceInfo += `${chalk.cyan(`#${user.discord_user.discriminator}`)}`;
         }
         
-        // Global Name (ie. nickname, not username)
+        // Display Name
         if (user.discord_user.global_name) {
           presenceInfo += `${chalk.dim(` (${user.discord_user.global_name})`)}`;
         }
@@ -139,7 +139,11 @@ program
             ? `${customStatus.emoji.name} ` 
             : '';
           const stateText = customStatus.state || '';
-          presenceInfo += `\n${chalk.cyan('Status:')} ${chalk.yellow(`${customStatusText}${stateText}`)}`;
+
+          // Only add to presenceInfo if there's more than just the emoji
+          if (customStatusText || stateText) {
+            presenceInfo += `\n${chalk.cyan('Status:')} ${chalk.yellow(`${customStatusText}${stateText}`)}`;
+          }
         }
 
         const watchedActivities = new Set();
@@ -165,7 +169,7 @@ program
               break;
         
             case 1: // Streaming
-              presenceInfo += `\n${chalk.cyan('Streaming:')} ${chalk.yellow(`${activity.name} @ ${activity.url}`)}`;
+              presenceInfo += `\n${chalk.cyan('Streaming:')} ${chalk.yellow(`${activity.name} ${chalk.white('•')} ${activity.url}`)}`;
               break;
         
             case 2: // Listening to Spotify
