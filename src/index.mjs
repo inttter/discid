@@ -79,7 +79,7 @@ program
           } else {
             console.log(chalk.bold.blue(`\nKV of ${user.discord_user.username}:\n`));
             for (const [key, value] of kvPairs) {
-              console.log(`${chalk.cyan(key)}: ${chalk.yellow(value)}`);
+              console.log(`${chalk.cyan(key)}: ${value}`);
             }
           }
         } else {
@@ -142,7 +142,7 @@ program
 
           // Only add to presenceInfo if there's more than just the emoji
           if (customStatusText || stateText) {
-            presenceInfo += `\n${chalk.cyan('Status:')} ${chalk.yellow(`${customStatusText}${stateText}`)}`;
+            presenceInfo += `\n${chalk.cyan('Status:')} ${customStatusText}${stateText}`;
           }
         }
 
@@ -153,36 +153,33 @@ program
         
           switch (activity.type) {
             case 0: // Playing a game
-              activityInfo = `${chalk.cyan('Playing:')} ${chalk.yellow(activity.name)}`;
+              activityInfo = `${chalk.cyan('Playing:')} ${activity.name}`;
         
-              if (activity.details) activityInfo += ` • ${chalk.yellow(activity.details)}`;
-              if (activity.state) activityInfo += ` • ${chalk.yellow(activity.state)}`;
+              if (activity.details) activityInfo += ` • ${activity.details}`;
+              if (activity.state) activityInfo += ` • ${activity.state}`;
         
               if (activity.timestamps?.start) {
                 const startTime = new Date(activity.timestamps.start);
                 const endTime = activity.timestamps.end ? new Date(activity.timestamps.end) : new Date();
                 const duration = Math.abs(endTime - startTime) / 1000;
-                activityInfo += ` • ${chalk.yellow(`for ${formatDuration(duration)}`)}`;
+                activityInfo += ` • ${`for ${formatDuration(duration)}`}`;
               }
         
               presenceInfo += `\n${activityInfo}`;
               break;
         
             case 1: // Streaming
-              presenceInfo += `\n${chalk.cyan('Streaming:')} ${chalk.yellow(`${activity.name} ${chalk.white('•')} ${activity.url}`)}`;
+              presenceInfo += `\n${chalk.cyan('Streaming:')} ${`${activity.name} • ${activity.url}`}`;
               break;
         
             case 2: // Listening to Spotify
               if (user.listening_to_spotify && user.spotify) {
-                const spotifyInfo = [
-                  `${chalk.cyan('Listening To:')} ${chalk.yellow(user.spotify.song)}`,
-                  `${chalk.yellow('by')} ${chalk.yellow(user.spotify.artist)}`,
-                ].join(' ');
+                const spotifyInfo = `${chalk.cyan('Listening To:')} ${user.spotify.song} by ${user.spotify.artist}`
         
                 if (user.spotify.timestamps?.start && user.spotify.timestamps?.end) {
                   const endTime = new Date(user.spotify.timestamps.end);
                   const remainingTime = (endTime - Date.now()) / 1000;
-                  presenceInfo += `\n${spotifyInfo} • ${chalk.yellow(`${formatDuration(remainingTime)} left`)}`;
+                  presenceInfo += `\n${spotifyInfo} • ${`${formatDuration(remainingTime)} left`}`;
                 } else {
                   presenceInfo += `\n${spotifyInfo}`;
                 }
@@ -193,9 +190,9 @@ program
               const activityKey = `${activity.type}-${activity.name}-${activity.details}`;
 
               if (!watchedActivities.has(activityKey)) {
-                const details = activity.details ? ` • ${chalk.yellow(activity.details)}` : '';
-                const state = activity.state ? ` • ${chalk.yellow(activity.state)}` : '';
-                presenceInfo += `\n${chalk.cyan('Watching:')} ${chalk.yellow(activity.name)}${details}${state}`;
+                const details = activity.details ? ` • ${activity.details}` : '';
+                const state = activity.state ? ` • ${activity.state}` : '';
+                presenceInfo += `\n${chalk.cyan('Watching:')} ${activity.name}${details}${state}`;
                 watchedActivities.add(activityKey);
               }
               break;
@@ -214,12 +211,12 @@ program
           platformInfo.push('Mobile');
         }
         if (platformInfo.length > 0) {
-          presenceInfo += `\n${chalk.cyan('Platform:')} ${chalk.yellow(platformInfo.join(', '))}`;
+          presenceInfo += `\n${chalk.cyan('Platform:')} ${platformInfo.join(', ')}`;
         }
 
         presenceInfo += `\n${chalk.cyan('Avatar URL:')} ${
           user.discord_user.avatar 
-            ? chalk.yellow(`https://api.lanyard.rest/${user.discord_user.id}.${user.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}`) 
+            ? `https://api.lanyard.rest/${user.discord_user.id}.${user.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}`
             : chalk.red('Unknown')
         }`;
 
