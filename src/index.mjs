@@ -125,12 +125,29 @@ program
             presenceInfo += chalk.hex('#FCD53F')('🟡 Idle');
             break;
           case 'dnd':
-            presenceInfo += (`${chalk.hex('#F8312F')('🔴 Do Not Disturb')}`);
+            presenceInfo += chalk.hex('#F8312F')('🔴 Do Not Disturb');
             break;
           default:
             presenceInfo += chalk.dim('Offline');
             break;
         }
+
+        // Switches the platform depending on what the `user.active` value is
+        const platformInfo = [];
+          if (user.active_on_discord_web) {
+            platformInfo.push('Web');
+          }
+          if (user.active_on_discord_desktop) {
+            platformInfo.push('Desktop');
+          }
+          if (user.active_on_discord_mobile) {
+            platformInfo.push('Mobile');
+          }
+
+          // Platform (if there is at least one)
+          if (platformInfo.length > 0) {
+            presenceInfo += ` ${chalk.dim(`(${platformInfo.join(', ')})`)}`;
+          }
 
         // Custom Status
         const customStatus = user.activities.find(activity => activity.type === 4);
@@ -198,21 +215,6 @@ program
               break;
           }
         });
-
-        // Switches the platform depending on what the `user.active` value is
-        const platformInfo = [];
-        if (user.active_on_discord_web) {
-          platformInfo.push('Web');
-        }
-        if (user.active_on_discord_desktop) {
-          platformInfo.push('Desktop');
-        }
-        if (user.active_on_discord_mobile) {
-          platformInfo.push('Mobile');
-        }
-        if (platformInfo.length > 0) {
-          presenceInfo += `\n${chalk.cyan('Platform:')} ${platformInfo.join(', ')}`;
-        }
 
         presenceInfo += `\n${chalk.cyan('Avatar URL:')} ${
           user.discord_user.avatar 
