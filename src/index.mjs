@@ -100,17 +100,26 @@ program
       if (presenceData && presenceData.success) {
         const user = presenceData.data;
 
-        // Username
-        let presenceInfo = `${user.discord_user.username}`;
-
-        // Discriminator (if user has one that isn't #0)
-        if (user.discord_user.discriminator !== '0') {
-          presenceInfo += `${chalk.cyan(`#${user.discord_user.discriminator}`)}`;
+        // Handle case where the user provided is a bot
+        // ---
+        // Sidenote: Trying to handle the fact that bots have no global name and are the only ones 
+        // with discriminators makes this harder to maintain with the current structure, and besides, 
+        // there are only two bots (Lanyard and Shoko Makinohara) so it's not worth having logic for two users.
+        if (user.discord_user.bot === true) {
+          consola.error(chalk.red(`This user is a bot. Bots are not supported by discid.`));
+          process.exit(1);
         }
-        
+
+        let presenceInfo = '';
+
         // Display Name
         if (user.discord_user.global_name) {
-          presenceInfo += `${chalk.dim(` (${user.discord_user.global_name})`)}`;
+          presenceInfo += `${user.discord_user.global_name}`;
+        }
+
+        // Username
+        if (user.discord_user.username) {
+          presenceInfo += chalk.dim(` (${user.discord_user.username})`);
         }
 
         presenceInfo += ' • ';
