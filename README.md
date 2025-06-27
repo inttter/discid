@@ -33,7 +33,7 @@ discid [userID]
 
 You will need to replace `[userID]` with the ID of the user you are trying to fetch the status of. To find the ID of a user, you can follow a [guide with images](https://iinter.me/writing/using-discid#how-do-you-find-a-user-id), or you can follow the steps below:
 
-1. Enable Developer mode by going to **Settings** ➔ **Advanced** ➔ **Developer Mode**, and check the toggle to be on.
+1. Enable Developer Mode by going to **Settings** ➔ **Advanced** ➔ **Developer Mode**, and check the toggle to be on.
 
 2.  Right click on a user and click the [`Copy User ID`](https://iinter.me/images/using-discid/copy-user-id.png) button.
 
@@ -48,19 +48,10 @@ discid 514106760299151372
 Depending on what the user is doing, you may get different outputs. Here is an example of what might be returned:
 
 ```bash
-iinter (lunar) • 🟢 Online
-Listening To: Duvet by bôa • 2min 58sec left
-Platform: Desktop
+lunar (iinter) • 🟢 Online (Desktop)
+Listening To: Never More by Shihoko Hirata • 3min 42sec left
 Avatar URL: https://api.lanyard.rest/514106760299151372.png
 ```
-
-These are returned because the status of the user is set to **Online**, and they are listening to the song **'Duvet'** by **'bôa'** at the time the command was ran.
-
-<div align="center">
-  <img src="https://github.com/inttter/discid/assets/73017070/fc9dcd40-b2e0-4da6-97e8-2a518336b988" width="250" alt="Discord profile">
-</div>
-
-<br>
 
 To see everything that can be displayed and for slightly more information, see [this page](https://iinter.me/writing/using-discid#what-else).
 
@@ -76,4 +67,4 @@ To see everything that can be displayed and for slightly more information, see [
 
 # License
 
-© **2024** - Licensed under the [MIT License](https://github.com/inttter/discid/blob/master/LICENSE).
+© **2025** - Licensed under the [MIT License](https://github.com/inttter/discid/blob/master/LICENSE).
