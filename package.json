@@ -21,7 +21,7 @@
     "chalk": "^5.4.1",
     "cli-highlight": "^2.1.11",
     "clipboardy": "^4.0.0",
-    "commander": "^12.1.0",
+    "commander": "^14.0.0",
     "consola": "^3.4.2",
     "open": "^10.1.2",
     "ora": "^8.2.0"
