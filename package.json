@@ -24,7 +24,7 @@
     "commander": "^12.1.0",
     "consola": "^3.4.2",
     "open": "^10.1.2",
-    "ora": "^8.2.0"
+    "ora": "^9.0.0"
   },
   "bin": {
     "discid": "src/index.mjs"
